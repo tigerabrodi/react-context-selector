@@ -5,11 +5,11 @@ A lightweight library for efficient React Context updates using selectors. Only 
 ## Installation
 
 ```bash
-npm install @tigerabrodi/react-context-selector
+npm install @tigerabrodioss/react-context-selector
 # or
-pnpm add @tigerabrodi/react-context-selector
+pnpm add @tigerabrodioss/react-context-selector
 # or
-yarn add @tigerabrodi/react-context-selector
+yarn add @tigerabrodioss/react-context-selector
 ```
 
 ## Usage
