@@ -12,6 +12,32 @@ pnpm add @tigerabrodioss/react-context-selector
 yarn add @tigerabrodioss/react-context-selector
 ```
 
+## Quick start
+
+```js
+// 1. Create a context
+const [CounterContext, Provider] = createSelectContext({
+  count: 0,
+  name: 'Tiger',
+})
+
+// 2. Set up the provider
+function App() {
+  return (
+    <Provider>
+      <Counter />
+    </Provider>
+  )
+}
+
+// 3. Use the context with a selector inside a component
+const count = useContextSelector(CounterContext, (state) => state.count)
+
+// 4. Update the state inside a component
+const setState = useContextSetState(CounterContext)
+setState((state) => ({ ...state, count: state.count + 1 }))
+```
+
 ## Usage
 
 ```tsx
@@ -118,6 +144,8 @@ const [TodoContext, TodoProvider] = createSelectContext(initialState, {
 })
 ```
 
+If enabled, `name` is required. This is used to identify the context in the console.
+
 ## Custom compare function
 
 You can pass a custom compare function to control when re-renders happen. This is useful for complex comparisons or performance optimization.
@@ -139,6 +167,8 @@ const todos = useContextSelector(
 ```
 
 Returning true from the compare function will not cause a re-render. It's like saying "this is the same data, so don't re-render".
+
+Usually, you don't need this. But it's useful when working with complex shapes of data.
 
 ## Requirements
 
