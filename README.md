@@ -135,35 +135,37 @@ function FilterPanel() {
 
 ## Debug Mode
 
-This enables logging to the console when the state changes.
+This enables logging to the console when the state changes. You enable debug option per selector. Debugging is only enabled in development mode.
 
 ```tsx
-const [TodoContext, TodoProvider] = createSelectContext(initialState, {
-  enabled: true,
-  name: 'Todos',
+const filters = useContextSelector(TodoContext, (state) => state.filters, {
+  debug: {
+    enabled: true,
+    name: 'Filters',
+  },
 })
 ```
 
-If enabled, `name` is required. This is used to identify the context in the console.
+If enabled, `name` is required. This is used to identify the selector in the console.
 
 ## Custom compare function
 
-You can pass a custom compare function to control when re-renders happen. This is useful for complex comparisons or performance optimization.
+You can pass a custom compare function to control when re-renders happen. This is useful for complex comparisons or performance optimization. The default compare function is [Object.is](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is).
 
 ```tsx
 // Only re-render if the number of completed todos changes
 const completedCount = useContextSelector(
   TodoContext,
   (state) => state.todos.filter((t) => t.completed).length,
-  (prev, next) => prev === next // Custom compare
+  {
+    compare: (prev, next) => prev === next,
+  }
 )
 
 // Or for array comparison
-const todos = useContextSelector(
-  TodoContext,
-  (state) => state.todos,
-  (prev, next) => prev.length === next.length // Only re-render on length changes
-)
+const todos = useContextSelector(TodoContext, (state) => state.todos, {
+  compare: (prev, next) => prev.length === next.length, // Only re-render on length changes
+})
 ```
 
 Returning true from the compare function will not cause a re-render. It's like saying "this is the same data, so don't re-render".
