@@ -9,5 +9,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["src", "tsup.config.ts"]
+  "include": [
+    "src",
+    "tsup.config.ts",
+    "vitest.config.ts",
+    "src/test/vitest.d.ts"
+  ]
 }
