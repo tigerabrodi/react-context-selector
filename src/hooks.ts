@@ -3,7 +3,7 @@ import { SetStateFn, Store } from './types'
 import { debugLogger, isDevelopment } from './utils'
 
 type Options<Selected> = {
-  compare: (prev: Selected, next: Selected) => boolean
+  compare?: (prev: Selected, next: Selected) => boolean
   debug?: {
     name: string
     enabled: boolean
@@ -37,11 +37,11 @@ type Options<Selected> = {
 export function useContextSelector<State, Selected>(
   Context: React.Context<Store<State> | null>,
   selector: (state: State) => Selected,
-  options: Options<Selected> = {
-    compare: Object.is,
-  }
+  options: Options<Selected> = {}
 ): Selected {
   const store = useContext(Context)
+
+  const compare = options.compare ?? Object.is
 
   if (!store) {
     throw new Error('Context Provider is missing')
@@ -55,7 +55,7 @@ export function useContextSelector<State, Selected>(
       const nextSelectedState = selector(store.getSnapshot())
 
       if (previousSelectedStateRef.current !== null) {
-        const shouldUpdateState = !options.compare(
+        const shouldUpdateState = !compare(
           previousSelectedStateRef.current,
           nextSelectedState
         )
