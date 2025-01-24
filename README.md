@@ -1,6 +1,6 @@
 # React Context Selector
 
-A lightweight library for efficient React Context updates using selectors. Only re-render components when the data they actually use changes.
+A lightweight (less than 1kb gzipped) library for efficient React Context updates using selectors. Only re-render components when the data they actually use changes.
 
 ## Installation
 
@@ -130,7 +130,7 @@ function FilterPanel() {
 
 - 🎯 Selective Re-rendering: Components only re-render when their selected data changes
 - 💡 Type-safe: Full TypeScript support
-- 🪶 Lightweight: Built on React's `useSyncExternalStore` (no additional dependencies!)
+- 🪶 Lightweight: < 1kb gzipped (no dependencies!)
 - 🔍 Debug Mode: Optional debugging to track state updates
 
 ## Debug Mode
