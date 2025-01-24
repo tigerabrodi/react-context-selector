@@ -16,20 +16,40 @@ type Options<Selected> = {
  *
  * @param Context - The React Context created by createSelectContext
  * @param selector - A function that selects a portion of the state
- * @param options - Configuration options
- * @param options.compare - Function to determine if selected state has changed (defaults to Object.is)
- * @param options.debug - Debug options for development only
+ * @param options - Optional configuration
+ * @param options.compare - Optional function to determine if selected state has changed (defaults to Object.is)
+ * @param options.debug - Optional debug options for development only
  * @param options.debug.name - Name to identify this selector in debug logs
  * @param options.debug.enabled - Whether to enable debug logging
  * @returns The selected portion of state
  *
  * @example
  * ```tsx
- * const count = useContextSelector(CountContext,
+ * // Basic usage
+ * const count = useContextSelector(CountContext, state => state.count)
+ *
+ * // With debug option
+ * const name = useContextSelector(CountContext,
  *   state => state.count,
  *   {
+ *     debug: { name: 'NameSelector', enabled: true }
+ *   }
+ * )
+ *
+ * // With custom compare
+ * const items = useContextSelector(CountContext,
+ *   state => state.items,
+ *   {
+ *     compare: (prev, next) => prev.length === next.length
+ *   }
+ * )
+ *
+ * // With both compare and debug
+ * const name = useContextSelector(CountContext,
+ *   state => state.name,
+ *   {
  *     compare: (prev, next) => prev === next,
- *     debug: { name: 'CountSelector', enabled: true }
+ *     debug: { name: 'NameSelector', enabled: true }
  *   }
  * )
  * ```
@@ -74,16 +94,6 @@ export function useContextSelector<State, Selected>(
           }
 
           return nextSelectedState
-        }
-
-        if (options.debug?.enabled && isDevelopment()) {
-          debugLogger({
-            name: options.debug.name,
-            prevState: previousSelectedStateRef.current,
-            nextState: nextSelectedState,
-            listeners: store.listeners.size,
-            status: 'No New Selected State',
-          })
         }
 
         return previousSelectedStateRef.current
