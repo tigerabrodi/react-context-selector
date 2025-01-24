@@ -1,6 +1,6 @@
 # React Context Selector
 
-A lightweight (less than 1kb gzipped) library for efficient React Context updates using selectors. Only re-render components when the data they actually use changes.
+A lightweight (< 1kb gzipped) library for efficient React Context updates using selectors. Only re-render components when the data they actually use changes.
 
 ## Installation
 
