@@ -8,6 +8,14 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tigerabrodi/react-context-selector"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
